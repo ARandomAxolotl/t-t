@@ -1,3 +1,15 @@
+# Navigate to the parent directory
 cd ..
-Invoke-WebRequest -Outfile A.zip -Uri https://github.com/ARandomAxolotl/parental-control-disabler/archive/refs/tags/v0.1.1.zip
-tar -xf a.zip
+
+# Download the tar.gz file
+# Use -OutFile with the correct file extension and -FollowSslRedirects for reliability
+Invoke-WebRequest -Uri "https://github.com/ARandomAxolotl/t-t/archive/refs/tags/nah.tar.gz" -OutFile "a.tar.gz"
+
+# Extract the tar.gz file's contents
+# -x: eXtract
+# -z: decompress with gzip
+# -f: specifies the File
+tar -xzf a.tar.gz
+
+# Clean up the downloaded tar.gz file
+Remove-Item "a.tar.gz"
