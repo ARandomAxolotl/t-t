@@ -94,4 +94,5 @@ try {
     exit
     
 } catch {
-    Write-Error "An error occurred during the update: $($"
+     Write-Error "An error occurred during the update: $($_.Exception.Message)"
+}
