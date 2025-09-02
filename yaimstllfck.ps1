@@ -1,3 +1,6 @@
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF
+
 # This script is called by the main update script to perform final cleanup
 # It takes the path of the old folder as a parameter
 
