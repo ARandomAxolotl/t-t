@@ -1,21 +1,25 @@
+# Set the console's code page to UTF-8
+chcp 65001
+
+# Set the output encoding for all PowerShell streams to UTF-8
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-$OutputEncoding = [System.Text.Encoding]::UTF
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
 # Read configuration from config.txt
 $configFile = "config.txt"
 
 # If config.txt does not exist, create it with default values.
 if (-not (Test-Path $configFile)) {
-    Write-Host "Không tìm thấy tệp cấu hình. Đang tạo tệp mặc định..."
     @"
-# Tên kho lưu trữ và chủ sở hữu trên GitHub.
+# GitHub repository owner and name.
 ProjectOwner=ARandomAxolotl
 ProjectRepo=t-t
 
-# Tùy chọn cho phép cập nhật phiên bản "snapshot" (y = 3).
-# Giá trị hợp lệ là 'true' hoặc 'false'.a
+# Option to allow "snapshot" builds (y = 3).
+# Valid values are 'true' or 'false'.
 AllowSnapshots=false
 
-# Tên của tập lệnh phụ trợ sẽ thực hiện việc dọn dẹp cuối cùng.
+# The name of the helper script that performs final cleanup.
 CleanupScript=yaimstllfck.ps1
 "@ | Out-File -FilePath $configFile -Encoding UTF8
 }
@@ -28,7 +32,7 @@ $repoName = $config.ProjectRepo
 $allowSnapshots = [System.Convert]::ToBoolean($config.AllowSnapshots)
 $cleanupScript = $config.CleanupScript
 
-Write-Host "Đang cập nhật dự án '$repoName'..."
+Write-Host "Updating project '$repoName'..."
 
 # Construct the API URL to get all releases
 $apiUrl = "https://api.github.com/repos/$repoOwner/$repoName/releases"
@@ -56,14 +60,14 @@ try {
     }
 
     if ($availableReleases.Count -eq 0) {
-        Write-Host "Không tìm thấy bản phát hành phù hợp nào."
+        Write-Host "No suitable releases found."
         exit
     }
 
     # Sort to find the latest version
     $latestRelease = $availableReleases | Sort-Object -Property Version -Descending | Select-Object -First 1
 
-    Write-Host "Tìm thấy bản phát hành mới nhất: $($latestRelease.Tag)"
+    Write-Host "Found latest release: $($latestRelease.Tag)"
 
     # Get the current folder name to pass to the cleanup script
     $currentProjectFolder = (Get-Location).Path
@@ -71,11 +75,11 @@ try {
     # Download the latest release
     $downloadUrl = $latestRelease.Url
     $zipFile = "latest-release.zip"
-    Write-Host "Đang tải xuống tệp: $zipFile"
+    Write-Host "Downloading file: $zipFile"
     Invoke-WebRequest -Uri $downloadUrl -OutFile $zipFile
 
     # Extract the archive
-    Write-Host "Đang giải nén tệp..."
+    Write-Host "Extracting file..."
     Expand-Archive -Path $zipFile -DestinationPath "." -Force
 
     # Find the newly extracted folder (e.g., 't-t-longhash')
@@ -83,12 +87,11 @@ try {
 
     # Run the cleanup script to finalize the update
     # The -ExecutionPolicy Bypass parameter is often necessary
-    Write-Host "Đang gọi tập lệnh phụ trợ để hoàn tất cập nhật..."
+    Write-Host "Calling helper script to finalize update..."
     Start-Process -FilePath "powershell.exe" -ArgumentList "-ExecutionPolicy", "Bypass", "-File", "$extractedDir\$cleanupScript", "-OldFolder", "`"$currentProjectFolder`""
     
     # Exit the main script so it can be deleted
     exit
     
 } catch {
-    Write-Error "Đã xảy ra lỗi trong quá trình cập nhật: $($_.Exception.Message)"
-}
+    Write-Error "An error occurred during the update: $($
