@@ -1,3 +1,5 @@
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF
 # Read configuration from config.txt
 $configFile = "config.txt"
 
@@ -10,7 +12,7 @@ ProjectOwner=ARandomAxolotl
 ProjectRepo=t-t
 
 # Tùy chọn cho phép cập nhật phiên bản "snapshot" (y = 3).
-# Giá trị hợp lệ là 'true' hoặc 'false'.
+# Giá trị hợp lệ là 'true' hoặc 'false'.a
 AllowSnapshots=false
 
 # Tên của tập lệnh phụ trợ sẽ thực hiện việc dọn dẹp cuối cùng.
