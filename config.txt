@@ -1,0 +1,10 @@
+# Tên kho lưu trữ và chủ sở hữu trên GitHub.
+ProjectOwner=ARandomAxolotl
+ProjectRepo=t-t
+
+# Tùy chọn cho phép cập nhật phiên bản "snapshot" (y = 3).
+# Giá trị hợp lệ là 'true' hoặc 'false'.
+AllowSnapshots=false
+
+# Tên của tập lệnh phụ trợ sẽ thực hiện việc dọn dẹp cuối cùng.
+CleanupScript=yaimstllfck.ps1
