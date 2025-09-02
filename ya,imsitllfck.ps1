@@ -1,14 +1,23 @@
-# Navigate to the parent directory
+# This script is called by the main update script to perform final cleanup
+# It takes the path of the old folder as a parameter
 
-# Download the tar.gz file
-# Use -OutFile with the correct file extension and -FollowSslRedirects for reliability
-Invoke-WebRequest -Uri "https://github.com/ARandomAxolotl/t-t/archive/refs/tags/nah.tar.gz" -OutFile "a.tar.gz"
+param (
+    [string]$OldFolder
+)
 
-# Extract the tar.gz file's contents
-# -x: eXtract
-# -z: decompress with gzip
-# -f: specifies the File
-tar -xzf a.tar.gz
+Write-Host "Tập lệnh dọn dẹp đang chạy..."
 
-# Clean up the downloaded tar.gz file
-Remove-Item "a.tar.gz"
+# Wait a moment to ensure the old script has exited
+Start-Sleep -Seconds 2
+
+# Remove the old project folder
+Write-Host "Đang xóa thư mục cũ: $OldFolder"
+Remove-Item -Path $OldFolder -Recurse -Force
+
+# Clean up the downloaded zip file from the parent directory
+Write-Host "Đang xóa tệp zip..."
+Remove-Item "..\latest-release.zip"
+
+Write-Host "Đã hoàn tất dọn dẹp!"
+
+# You can add more cleanup or finalization steps here if needed
