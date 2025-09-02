@@ -1,10 +1,10 @@
-# Tên kho lưu trữ và chủ sở hữu trên GitHub.
+# GitHub repository owner and name.
 ProjectOwner=ARandomAxolotl
 ProjectRepo=t-t
 
-# Tùy chọn cho phép cập nhật phiên bản "snapshot" (y = 3).
-# Giá trị hợp lệ là 'true' hoặc 'false'.
+# Option to allow "snapshot" builds (y = 3).
+# Valid values are 'true' or 'false'.
 AllowSnapshots=false
 
-# Tên của tập lệnh phụ trợ sẽ thực hiện việc dọn dẹp cuối cùng.
+# The name of the helper script that performs final cleanup.
 CleanupScript=yaimstllfck.ps1
