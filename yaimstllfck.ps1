@@ -1,6 +1,3 @@
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-$OutputEncoding = [System.Text.Encoding]::UTF
-
 # This script is called by the main update script to perform final cleanup
 # It takes the path of the old folder as a parameter
 
@@ -8,19 +5,19 @@ param (
     [string]$OldFolder
 )
 
-Write-Host "Tập lệnh dọn dẹp đang chạy..."
+Write-Host "Cleanup script is running..."
 
 # Wait a moment to ensure the old script has exited
 Start-Sleep -Seconds 2
 
 # Remove the old project folder
-Write-Host "Đang xóa thư mục cũ: $OldFolder"
+Write-Host "Removing old folder: $OldFolder"
 Remove-Item -Path $OldFolder -Recurse -Force
 
 # Clean up the downloaded zip file from the parent directory
-Write-Host "Đang xóa tệp zip..."
+Write-Host "Removing zip file..."
 Remove-Item "..\latest-release.zip"
 
-Write-Host "Đã hoàn tất dọn dẹp!"
+Write-Host "Cleanup complete!"
 
 # You can add more cleanup or finalization steps here if needed
