@@ -1,5 +1,24 @@
 # Read configuration from config.txt
-$config = Get-Content -Path "config.txt" | ConvertFrom-StringData
+$configFile = "config.txt"
+
+# If config.txt does not exist, create it with default values.
+if (-not (Test-Path $configFile)) {
+    Write-Host "Không tìm thấy tệp cấu hình. Đang tạo tệp mặc định..."
+    @"
+# Tên kho lưu trữ và chủ sở hữu trên GitHub.
+ProjectOwner=ARandomAxolotl
+ProjectRepo=t-t
+
+# Tùy chọn cho phép cập nhật phiên bản "snapshot" (y = 3).
+# Giá trị hợp lệ là 'true' hoặc 'false'.
+AllowSnapshots=false
+
+# Tên của tập lệnh phụ trợ sẽ thực hiện việc dọn dẹp cuối cùng.
+CleanupScript=yaimstllfck.ps1
+"@ | Out-File -FilePath $configFile -Encoding UTF8
+}
+
+$config = Get-Content -Path $configFile | ConvertFrom-StringData
 
 # Extract project details from the configuration
 $repoOwner = $config.ProjectOwner
